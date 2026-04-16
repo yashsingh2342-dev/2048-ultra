@@ -1,4 +1,3 @@
-// Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
@@ -6,6 +5,9 @@ if ('serviceWorker' in navigator) {
 const size = 4;
 let board = [];
 let score = 0;
+let best = localStorage.getItem("best") || 0;
+
+document.getElementById("best").textContent = best;
 
 function reset(){
 board = Array(size).fill().map(()=>Array(size).fill(0));
@@ -35,10 +37,19 @@ board.forEach(row=>{
 row.forEach(val=>{
 let d=document.createElement("div");
 d.className="tile";
+d.dataset.val=val;
 d.textContent=val || "";
 g.appendChild(d);
 });
 });
+
+document.getElementById("score").textContent = score;
+
+if(score>best){
+best=score;
+localStorage.setItem("best",best);
+document.getElementById("best").textContent=best;
+}
 }
 
 function slide(row){
@@ -80,7 +91,6 @@ draw();
 }
 }
 
-// keyboard controls
 document.addEventListener("keydown",e=>{
 if(e.key==="ArrowLeft") move("left");
 if(e.key==="ArrowRight") move("right");
@@ -88,7 +98,6 @@ if(e.key==="ArrowUp") move("up");
 if(e.key==="ArrowDown") move("down");
 });
 
-// mobile swipe
 let startX,startY;
 
 document.addEventListener("touchstart",e=>{
