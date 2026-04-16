@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2048 Ultra</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#667eea">
+
+</head>
+<body>
+
+<div class="container">
+<h1>2048 Ultra</h1>
+
+<div id="game"></div>
+
+<button onclick="reset()">Restart</button>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
