@@ -25,16 +25,15 @@ backdrop-filter:blur(10px);
 }
 
 #game{
-width:320px;
+width:340px;
 margin:20px auto;
 display:grid;
-grid-template-columns:repeat(4,1fr);
 gap:10px;
 }
 
 .tile{
-height:70px;
-border-radius:10px;
+height:75px;
+border-radius:12px;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -42,6 +41,7 @@ font-size:22px;
 font-weight:bold;
 transition:0.15s ease;
 color:#333;
+box-shadow:0 6px 12px rgba(0,0,0,0.25);
 }
 
 button{
