@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2048 Ultra</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -10,6 +10,7 @@
 <body>
 
 <div class="container">
+
 <h1>2048 Ultra</h1>
 
 <div class="top">
@@ -17,11 +18,27 @@
 <div class="score">Best <span id="best">0</span></div>
 </div>
 
+<div class="buttons">
 <button onclick="reset()">Restart</button>
-
-<div id="game"></div>
+<button onclick="toggleAI()">AI</button>
+<button onclick="toggleHard()">Hard</button>
+<button onclick="toggleSize()">5x5</button>
 </div>
 
+<div id="game"></div>
+
+</div>
+
+<div id="popup" class="popup hidden">
+  <div class="popup-box">
+    <h2>You Win! 🎉</h2>
+    <button onclick="closePopup()">Continue</button>
+  </div>
+</div>
+
+<audio id="mergeSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
 <script src="script.js"></script>
+
 </body>
 </html>
