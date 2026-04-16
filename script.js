@@ -2,10 +2,12 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
 
-const size = 4;
+let size = 4;
 let board = [];
 let score = 0;
 let best = localStorage.getItem("best") || 0;
+let aiRunning=false;
+let hard=false;
 
 document.getElementById("best").textContent = best;
 
@@ -26,11 +28,12 @@ if(board[r][c]===0) empty.push({r,c});
 if(!empty.length) return;
 
 let {r,c} = empty[Math.floor(Math.random()*empty.length)];
-board[r][c] = Math.random()<0.9 ? 2 : 4;
+board[r][c] = Math.random()< (hard?0.7:0.9) ? 2 : 4;
 }
 
 function draw(){
 const g = document.getElementById("game");
+g.style.gridTemplateColumns=`repeat(${size},1fr)`;
 g.innerHTML="";
 
 board.forEach(row=>{
@@ -40,6 +43,8 @@ d.className="tile";
 d.dataset.val=val;
 d.textContent=val || "";
 g.appendChild(d);
+
+if(val===2048) showWin();
 });
 });
 
@@ -60,6 +65,8 @@ if(row[i]===row[i+1]){
 row[i]*=2;
 score+=row[i];
 row[i+1]=0;
+
+document.getElementById("mergeSound").play();
 }
 }
 
@@ -115,5 +122,39 @@ dx>0 ? move("right") : move("left");
 dy>0 ? move("down") : move("up");
 }
 });
+
+// AI autoplay
+function toggleAI(){
+aiRunning=!aiRunning;
+if(aiRunning) aiLoop();
+}
+
+function aiLoop(){
+if(!aiRunning) return;
+let dirs=["up","right","down","left"];
+move(dirs[Math.floor(Math.random()*4)]);
+setTimeout(aiLoop,150);
+}
+
+// hard mode
+function toggleHard(){
+hard=!hard;
+reset();
+}
+
+// 5x5 grid
+function toggleSize(){
+size = size===4 ? 5 : 4;
+reset();
+}
+
+// popup
+function showWin(){
+document.getElementById("popup").classList.remove("hidden");
+}
+
+function closePopup(){
+document.getElementById("popup").classList.add("hidden");
+}
 
 reset();
